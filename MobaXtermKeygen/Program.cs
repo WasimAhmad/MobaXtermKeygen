@@ -72,13 +72,14 @@ namespace MobaXtermKeygen
         private static void GenerateLicense(LicenseType type, int count, string userName, int majorVersion, int minorVersion)
         {
             string licenseString = CreateLicenseString(type, count, userName, majorVersion, minorVersion);
+            Console.Write(licenseString);
             var encodedLicenseString = VariantBase64Encode(EncryptBytes(0x787, Encoding.ASCII.GetBytes(licenseString)));
             SaveLicenseToZip(encodedLicenseString);
         }
 
         private static string CreateLicenseString(LicenseType type, int count, string userName, int majorVersion, int minorVersion)
         {
-            return $"{(int)type}#{userName}|{majorVersion}{minorVersion}#{count}#{majorVersion}{minorVersion}{minorVersion}63#0#0#0#";
+            return $"{(int)type}#{userName}|{majorVersion}{minorVersion}#{count}#{majorVersion}3{minorVersion}6{minorVersion}#0#0#0#";
         }
 
         private static void SaveLicenseToZip(string encodedLicense)
