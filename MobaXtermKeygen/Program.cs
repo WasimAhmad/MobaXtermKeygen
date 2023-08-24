@@ -61,16 +61,6 @@ namespace MobaXtermKeygen
 
         private static void DisplayHelp()
         {
-            byte[] byteData = Encoding.UTF8.GetBytes("TestData");
-            string encodedData = VariantBase64Encode(byteData);
-            Console.WriteLine(encodedData);
-
-            byte[] encryptedData = EncryptBytes(0x787, byteData);
-            string resultString = Encoding.ASCII.GetString(encryptedData);
-
-            //byte[] encryptedData = EncryptBytes(0x787, byteData);
-            Console.WriteLine(resultString);
-
             Console.WriteLine("Usage:");
             Console.WriteLine("    MobaXterm-Keygen.exe <UserName> <Version>");
             Console.WriteLine();
@@ -82,7 +72,6 @@ namespace MobaXtermKeygen
         private static void GenerateLicense(LicenseType type, int count, string userName, int majorVersion, int minorVersion)
         {
             string licenseString = CreateLicenseString(type, count, userName, majorVersion, minorVersion);
-            Console.WriteLine(licenseString);
             var encodedLicenseString = VariantBase64Encode(EncryptBytes(0x787, Encoding.ASCII.GetBytes(licenseString)));
             SaveLicenseToZip(encodedLicenseString);
         }
@@ -107,7 +96,7 @@ namespace MobaXtermKeygen
             {
                 result.Add((byte)(b ^ ((key >> 8) & 0xff)));
                 key = result.Last() & key | 0x482D;
-                Console.WriteLine($"Byte: {b}, Key: {key}, Result Byte: {result.Last()}");
+                //Console.WriteLine($"Byte: {b}, Key: {key}, Result Byte: {result.Last()}");
 
             }
             return result.ToArray();
